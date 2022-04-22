@@ -3,20 +3,30 @@
 start=100
 end=0
 goal=200
-win=$((start+1))
-lost=$((start-1))
-while [[ $lost -ne $end || $win -ne $goal ]]
+won=0
+lost=0
+while [[ $start -ne $end && $start -ne $goal ]]
 do
    x=$((RANDOM%2))
    if [ $x -eq 1 ]
    then
 
-      echo "Wins" $win
-
-   ((win++))
+   	((won++))
+		((start++))
    else
 
-      echo "Lost" $lost
-   ((lost--))
+      ((lost--))
+		((start--))
    fi
 done
+
+echo "Total win:"$won
+echo "Total losses"$lost
+
+if [ $start -eq $goal ]
+then
+	echo "Goal is reached, total money:$start"
+else
+	echo "End, total money:$start"
+fi
+
